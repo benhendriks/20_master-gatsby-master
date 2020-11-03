@@ -21,7 +21,7 @@ export default {
       options: {
         source: 'name',
         maxLenght: 100,       
-      }
+      },
     },
     {
       name: 'image',
@@ -29,7 +29,7 @@ export default {
       type: 'image',
       options: {
         hotspot: true,
-      }
+      },
     },
     {
       name: 'price',
@@ -38,7 +38,6 @@ export default {
       description: 'Price of the pizza in cents',
       validation: Rule => Rule.min(1000),
       //TODO: Add custom component
-
     },
   ],
 };
