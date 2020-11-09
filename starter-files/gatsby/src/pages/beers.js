@@ -17,7 +17,8 @@ const SingleBeerStyles = styled.div`
     object-fit: contain;
     display: grid;
     align-items: center;
-    font-size: 20px;
+    font-size: 10px;
+    background: var(--grey);
   }
 `;
 
