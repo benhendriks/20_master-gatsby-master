@@ -3,6 +3,7 @@ import { graphql, Link } from 'gatsby';
 import Img from 'gatsby-image';
 import styled from 'styled-components';
 import Pagination from '../components/Pagination';
+import SEO from '../components/SEO';
 
 const SlicemasterGrid = styled.div`
   display: grid;
@@ -12,7 +13,7 @@ const SlicemasterGrid = styled.div`
 
 const SlicemasterStyles = styled.div`
   a {
-    text-decoration: none; 
+    text-decoration: none;
   }
   .gatsby-image-wrapper {
     height: 400px;
@@ -39,27 +40,26 @@ const SlicemasterStyles = styled.div`
 
 export default function SlicemastersPage({ data, pageContext }) {
   const slicemasters = data.slicemasters.nodes;
-  return(
+  return (
     <>
-      <Pagination 
-        pageSize={parseInt(process.env.GATSBY_PAGE_SIZE)} 
+      <SEO title={`Slicmasters - Page ${pageContext.currentPage || 1}`} />
+      <Pagination
+        pageSize={parseInt(process.env.GATSBY_PAGE_SIZE)}
         totalCount={data.slicemasters.totalCount}
         currentPage={pageContext.currentPage || 1}
         skip={pageContext.skip}
         base="/slicemasters"
-       />
+      />
       <SlicemasterGrid>
-        {slicemasters.map(person => (
-          <SlicemasterStyles>
-            <Link to={`/slicmaster/${person.slug.current}`}>
+        {slicemasters.map((person) => (
+          <SlicemasterStyles key={person.id}>
+            <Link to={`/slicemaster/${person.slug.current}`}>
               <h2>
                 <span className="mark">{person.name}</span>
-              </h2>  
+              </h2>
             </Link>
-            <Img fluid={person.image.asset.fluid}></Img>
-            <p className="description">
-              {person.description}
-            </p>
+            <Img fluid={person.image.asset.fluid} />
+            <p className="description">{person.description}</p>
           </SlicemasterStyles>
         ))}
       </SlicemasterGrid>
@@ -81,7 +81,7 @@ export const query = graphql`
         image {
           asset {
             fluid(maxWidth: 410) {
-              ...GatsbySanityImageFluid 
+              ...GatsbySanityImageFluid
             }
           }
         }

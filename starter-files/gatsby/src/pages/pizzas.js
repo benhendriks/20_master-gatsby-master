@@ -2,11 +2,19 @@ import React from 'react';
 import { graphql } from 'gatsby';
 import PizzaList from '../components/PizzaList';
 import ToppingFilter from '../components/ToppingsFilter';
+import SEO from '../components/SEO';
 
-export default function PizzasPage({ data, pageContext }) { 
+export default function PizzasPage({ data, pageContext }) {
   const pizzas = data.pizzas.nodes;
-  return(
+  return (
     <>
+      <SEO
+        title={
+          pageContext.topping
+            ? `Pizzas with ${pageContext.topping}`
+            : 'All Pizzas'
+        }
+      />
       <ToppingFilter activeTopping={pageContext.topping} />
       <PizzaList pizzas={pizzas} />
     </>
@@ -15,15 +23,9 @@ export default function PizzasPage({ data, pageContext }) {
 
 export const query = graphql`
   query PizzaQuery($topping: [String]) {
-    pizzas: allSanityPizza(filter: {
-      toppings: {
-        elemMatch: {
-          name: {
-            in: $topping
-          }
-        }
-      }
-    }) {
+    pizzas: allSanityPizza(
+      filter: { toppings: { elemMatch: { name: { in: $topping } } } }
+    ) {
       nodes {
         name
         id
