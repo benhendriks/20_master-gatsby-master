@@ -33,6 +33,12 @@ const transporter = nodemailer.createTransport({
   },
 });
 
+function wait(ms = 0) {
+  return new Promise((resolve, reject) => {
+    setTimeout(resolve, ms);
+  });
+}
+
 exports.handler = async (event, constext) => {
   const body = JSON.parse(event.body);
   // Validate the data coming in is correct
@@ -43,10 +49,22 @@ exports.handler = async (event, constext) => {
     if (!body[field]) {
       return {
         statusCode: 400,
-        body: JSON.stringify({ message: `Oops! Ypu are missing the ${field}` }),
+        body: JSON.stringify({ message: `Oops! You are missing the ${field}` }),
       };
     }
   }
+
+  // Make sure they actually have itmes in that order
+
+  if (!body.order.length) {
+    return {
+      statusCode: 400,
+      body: JSON.stringify({
+        message: `Oops! You need to choose a Pizza first`,
+      }),
+    };
+  }
+
   // Send the email
 
   // Send the success or error message
