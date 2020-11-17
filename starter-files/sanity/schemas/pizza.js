@@ -2,9 +2,9 @@ import { MdLocalPizza as icon } from 'react-icons/md';
 import PriceInput from '../components/PriceInput';
 
 export default {
-  //Computername
+  // Computername
   name: 'pizza',
-  //Visible title
+  // Visible title
   title: 'Pizzas',
   type: 'document',
   icon,
@@ -21,7 +21,7 @@ export default {
       type: 'slug',
       options: {
         source: 'name',
-        maxLenght: 100,       
+        maxLenght: 100,
       },
     },
     {
@@ -37,8 +37,8 @@ export default {
       title: 'Price',
       type: 'number',
       description: 'Price of the pizza in cents',
-      validation: Rule => Rule.min(1000),
-      //TODO: Add custom component
+      validation: (Rule) => Rule.min(1000),
+      // TODO: Add custom component
       inputComponent: PriceInput,
     },
     {
@@ -48,7 +48,7 @@ export default {
       of: [{ type: 'reference', to: [{ type: 'topping' }] }],
     },
   ],
-  preview : {
+  preview: {
     select: {
       title: 'name',
       media: 'image',
@@ -60,7 +60,7 @@ export default {
     prepare: ({ title, media, ...toppings }) => {
       // 1. Filter undefined toppingsout
       const tops = Object.values(toppings).filter(Boolean);
-      // 2. Return the preview object for the pizza 
+      // 2. Return the preview object for the pizza
       return {
         title,
         media,
