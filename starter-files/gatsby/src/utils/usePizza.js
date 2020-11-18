@@ -30,7 +30,6 @@ export default function usePizza({ pizzas, values }) {
   // This is the function that is run when someonesubmits the form
   async function submitOrder(e) {
     e.preventDefault();
-    console.log(e);
     setLoading(true);
     setError(null);
     // setMessage(null);
